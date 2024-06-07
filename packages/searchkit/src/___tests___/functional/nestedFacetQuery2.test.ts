@@ -3,7 +3,7 @@ import nock from 'nock'
 import { ExampleNestedFacetQueryResponse } from '../mocks/ElasticsearchResponses'
 import { NestedFacetQueryExampleRequest } from '../mocks/AlgoliaRequests'
 
-describe('nested facetQuery 2', () => {
+describe('nested facetQuery 2 testing added', () => {
   it('nested facet with query', async () => {
     const client = new Client(
       {
