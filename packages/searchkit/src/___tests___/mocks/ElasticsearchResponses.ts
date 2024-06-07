@@ -1315,6 +1315,217 @@ export const ExampleNestedMixedFacetResponse = {
   ]
 }
 
+export const ExampleNestedMixedFacetResponse2 = {
+  // took: 10,
+  // responses: [
+  //   {
+      took: 9,
+      timed_out: false,
+      _shards: { total: 1, successful: 1, skipped: 0, failed: 0 },
+      hits: {
+        total: 5, //{ value: 5, relation: 'eq' },
+        max_score: 1,
+        hits: [
+          {
+            _index: 'final-faceted-ai',
+            _id: 'QXUK648Bpewgdo5gBx0X',
+            _score: 1,
+            _source: {
+              request_type: 'OFFER',
+              lga: 'yola-south',
+              keyword_facets: [{ facet_value: 'NEW', facet_name: 'condition' }],
+              long_facets: [{ facet_value: 12000, facet_name: 'price' }],
+              description: 'brand new',
+              title: 'Iwatch 2 pro',
+              tags: null,
+              condition: 'NEW',
+              price: 12000,
+              auth_user: 'Postman Developer',
+              item_image: null,
+              location: '40.715, -74.011',
+              category: 'watch',
+              status: 'NEW',
+            },
+          },
+          {
+            _index: 'final-faceted-ai',
+            _id: 'QnUK648Bpewgdo5gBx0X',
+            _score: 1,
+            _source: {
+              request_type: 'OFFER',
+              lga: 'central-area',
+              keyword_facets: [
+                { facet_value: 'USED', facet_name: 'condition' },
+              ],
+              long_facets: [{ facet_value: 150000, facet_name: 'price' }],
+              description: 'Used for only 2 Month',
+              title: 'Samsung Galaxy S10',
+              tags: '[]',
+              condition: 'USED',
+              price: 150000,
+              auth_user: 'Postman Developer',
+              item_image: null,
+              location: '40.715, -74.011',
+              category: 'phone',
+              status: 'ACTIVE',
+            },
+          },
+          {
+            _index: 'final-faceted-ai',
+            _id: 'Q3UK648Bpewgdo5gBx0X',
+            _score: 1,
+            _source: {
+              request_type: 'OFFER',
+              lga: 'central-area',
+              keyword_facets: [
+                { facet_value: 'Apple', facet_name: 'brand' },
+                { facet_value: 'USED', facet_name: 'condition' },
+              ],
+              long_facets: [{ facet_value: 400000, facet_name: 'price' }],
+              description: 'Used for only 2 Month',
+              title: 'Macbook Pro',
+              tags: '[]',
+              condition: 'USED',
+              price: 400000,
+              auth_user: 'Postman Developer',
+              item_image: null,
+              location: '40.715, -74.011',
+              category: 'laptop',
+              status: 'ACTIVE',
+            },
+          },
+          {
+            _index: 'final-faceted-ai',
+            _id: 'RHUK648Bpewgdo5gBx0X',
+            _score: 1,
+            _source: {
+              request_type: 'OFFER',
+              lga: 'central-area',
+              keyword_facets: [
+                { facet_value: 'HP', facet_name: 'brand' },
+                { facet_value: 'USED', facet_name: 'condition' },
+              ],
+              long_facets: [{ facet_value: 100000, facet_name: 'price' }],
+              description: 'A partially used HP but good without box',
+              title: 'HP Laptop 258',
+              tags: '[]',
+              condition: 'USED',
+              price: 100000,
+              auth_user: 'Postman Developer',
+              item_image: null,
+              location: '40.715, -74.011',
+              category: 'laptop',
+              status: 'ACTIVE',
+            },
+          },
+          {
+            _index: 'final-faceted-ai',
+            _id: 'RXUK648Bpewgdo5gBx0X',
+            _score: 1,
+            _source: {
+              request_type: 'OFFER',
+              lga: 'central-area',
+              keyword_facets: [
+                { facet_value: 'Apple', facet_name: 'brand' },
+                { facet_value: 'NEW', facet_name: 'condition' },
+              ],
+              long_facets: [{ facet_value: 300000, facet_name: 'price' }],
+              description: '<div>the latest iphone x brand new with box</div>',
+              title: 'new iphone X',
+              tags: '[]',
+              condition: 'NEW',
+              price: 300000,
+              auth_user: 'Postman Developer',
+              item_image: null,
+              location: '40.715, -74.011',
+              category: 'Iphone',
+              status: 'ACTIVE',
+            },
+          },
+        ],
+      },
+      aggregations: {
+        request_type: {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: 'OFFER', doc_count: 5 }],
+        },
+        'categories.lvl2': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: 'Multimedia > Phones > Iphone', doc_count: 1 }],
+        },
+        price$_entries: {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [
+            { key: 12000, doc_count: 1 },
+            { key: 100000, doc_count: 1 },
+            { key: 150000, doc_count: 1 },
+            { key: 300000, doc_count: 1 },
+            { key: 400000, doc_count: 1 },
+          ],
+        },
+        'categories.lvl1': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [
+            { key: 'Multimedia > Laptops', doc_count: 2 },
+            { key: 'Multimedia > Phones', doc_count: 2 },
+            { key: 'Fashion > Watches', doc_count: 1 },
+          ],
+        },
+        lga: {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [
+            { key: 'central-area', doc_count: 4 },
+            { key: 'yola-south', doc_count: 1 },
+          ],
+        },
+        'categories.lvl0': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [
+            { key: 'Multimedia', doc_count: 4 },
+            { key: 'Fashion', doc_count: 1 },
+          ],
+        },
+        'keyword_facets.': {
+          doc_count: 8,
+          brand: {
+            doc_count: 3,
+            'keyword_facets.brand': {
+              doc_count_error_upper_bound: 0,
+              sum_other_doc_count: 0,
+              buckets: [
+                { key: 'Apple', doc_count: 2 },
+                { key: 'HP', doc_count: 1 },
+              ],
+            },
+          },
+        },
+        lga2: {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [
+            { key: 'central-area', doc_count: 4 },
+            { key: 'yola-south', doc_count: 1 },
+          ],
+        },
+        price$_stats: {
+          count: 5,
+          min: 12000,
+          max: 400000,
+          avg: 192400,
+          sum: 962000,
+        },
+      },
+      status: 200,
+  //   },
+  // ],
+}
+
 export const ExampleNestedFacetQueryResponse = {
   took: 1,
   responses: [
