@@ -77,6 +77,11 @@ function convertLatLng(value: GeoLocation) {
 }
 
 const TermFacetResponse = (aggregation: AggregationsStringTermsAggregate) => {
+  // if(!aggregation.buckets){
+  //   console.log({aggregation})
+  //   return {'Apple':21};
+  // }
+
   return (aggregation.buckets as AggregationsStringTermsBucket[]).reduce<FacetStringResponse>(
     (sum, bucket) => ({
       ...sum,
@@ -86,7 +91,7 @@ const TermFacetResponse = (aggregation: AggregationsStringTermsAggregate) => {
   )
 }
 
-const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsConfig) => {
+export const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsConfig) => {
   if (!response?.aggregations) {
     return {}
   }
@@ -98,6 +103,25 @@ const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsCo
 
       if (key.endsWith('.')) {
         const { doc_count, ...nestedAggregations } = value
+
+        // BEGIN MY Customisation 
+        // console.warn({key,value});
+        // console.log({nestedAggregations})
+        // if(nestedAggregations.doc_count || nestedAggregations.buckets){
+        // check for customed FacetQery?
+        if(key=='keyword_facets.'){
+          // console.warn('CUSTOMIZED ', key)
+
+          // e.g nestedAggregations = { brand: { doc_count: 3, 'keyword_facets.brand': [Object] } }
+          const key2 = Object.keys(nestedAggregations)[0];
+          const { doc_count, ...nestedAggregations2 } = nestedAggregations[key2];
+          return {
+            ...sum,
+            ...nestedAggregations2
+          }
+        }
+        // /END My Mustomisation
+
         return {
           ...sum,
           ...nestedAggregations
@@ -120,6 +144,12 @@ const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsCo
       const facet = f.split('$')[0]
       const fieldType = getFacetFieldType(config.facet_attributes || [], facet)
       const facetConfig = getFacetFieldConfig(config.facet_attributes || [], facet)
+      
+      // console.error(facetConfig?.field);
+      // if(facetConfig?.field=='keyword_facets.facet_value'){
+      //   console.warn({facetConfig})
+      // }
+
       const facetResponse =
         (facetConfig && 'facetResponse' in facetConfig && facetConfig?.facetResponse) ||
         TermFacetResponse
