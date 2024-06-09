@@ -99,28 +99,44 @@ export const getFacets = (response: ElasticsearchResponseBody, config: SearchSet
   // flattening for nested facets
   const aggregations = Object.keys(response.aggregations).reduce<Record<string, any>>(
     (sum, key) => {
-      const value = (response.aggregations || {})[key] as any
+      let value = (response.aggregations || {})[key] as any
 
       if (key.endsWith('.')) {
-        const { doc_count, ...nestedAggregations } = value
+        let { doc_count, ...nestedAggregations } = value
 
         // BEGIN MY Customisation 
-        // console.warn({key,value});
-        // console.log({nestedAggregations})
-        // if(nestedAggregations.doc_count || nestedAggregations.buckets){
-        // check for customed FacetQery?
-        if(key=='keyword_facets.'){
-          // console.warn('CUSTOMIZED ', key)
+        // // check for customed FacetQery?
+        if (key === 'keyword_facets.') {
+          console.warn('CUSTOMIZED ', key);
+          console.log('xxx', JSON.stringify(nestedAggregations));
 
-          // e.g nestedAggregations = { brand: { doc_count: 3, 'keyword_facets.brand': [Object] } }
-          const key2 = Object.keys(nestedAggregations)[0];
-          const { doc_count, ...nestedAggregations2 } = nestedAggregations[key2];
-          return {
-            ...sum,
-            ...nestedAggregations2
-          }
+          const flattenNestedAggregations = (nestedObj: Record<string, any>): Record<string, any> => {
+            const result: Record<string, any> = {};
+            Object.keys(nestedObj).forEach(nestedKey => {
+              const nestedValue = nestedObj[nestedKey];
+
+              let { doc_count, ...nestedAggregations2 } = nestedValue;
+              if (nestedAggregations2.buckets !== undefined) {
+                result[nestedKey] = {
+                  doc_count: doc_count,
+                  buckets: nestedAggregations2.buckets,
+                  doc_count_error_upper_bound: nestedAggregations2.doc_count_error_upper_bound,
+                  sum_other_doc_count: nestedAggregations2.sum_other_doc_count
+                };
+              } else {
+                const flattened = flattenNestedAggregations(nestedAggregations2);
+                result[nestedKey] = flattened[nestedKey];
+              }
+            });
+            return result;
+          };
+
+          const nestedAggregations2 = flattenNestedAggregations(nestedAggregations);
+
+          nestedAggregations = {...nestedAggregations, ...nestedAggregations2}
+
         }
-        // /END My Mustomisation
+        // /END My Customisation
 
         return {
           ...sum,

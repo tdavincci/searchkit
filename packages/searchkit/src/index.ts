@@ -15,6 +15,7 @@ import {
   ExampleNestedFiltersResponse,
   ExampleNestedMixedFacetResponse,
   ExampleNestedMixedFacetResponse2,
+  ExampleNestedMixedFacetResponse3,
   ExampleNestedNumericFilterResponse
 } from './___tests___/mocks/ElasticsearchResponses'
 
@@ -109,14 +110,21 @@ export default class Searchkit {
 // My Manual Testing 
   getFacetTest = ()=>{
     // console.log('Tesing works');
-    const responseBody: ElasticsearchResponseBody = ExampleNestedMixedFacetResponse2;
-    const facets: any = getFacets(responseBody, searchSettings);
+    // const responseBody: ElasticsearchResponseBody = ExampleNestedMixedFacetResponse2;
 
-    console.log('imback')
-    console.log({facets})
-    console.log(facets.facets)
-    if(facets.facets['keyword_facets.brand'])
-      console.log('testNestedBrand', facets.facets['keyword_facets.brand']);
+    const responsesBag = ExampleNestedMixedFacetResponse3;
+    responsesBag.responses.forEach((response: any)=>{
+
+      const facets: any = getFacets(response, searchSettings);
+  
+      console.log('imback')
+      // console.log({facets})
+      console.log(facets.facets)
+      if(facets.facets['keyword_facets.brand'])
+        console.log('testNestedBrand', facets.facets['keyword_facets.brand']);
+
+    })
+
     return 5;
   }
 }
@@ -196,25 +204,25 @@ const searchSettings: SearchSettingsConfig =  {
         };
       },
       filterQuery: (
-        field,
-        value,
-      ) => {
+        field: string,
+        value: string,
+      ): any => {
         console.log('filterQuery', {field}, {value});
-        return ({
-          nested: {
-            path: 'keyword_facets',
-            query: {
-              // match_all: {},
-              bool: {
+        return {
+          // nested: {
+          //   path: 'keyword_facets',
+          //   query: {
+          //     // match_all: {},
+          //     bool: {
                 filter: [
                   { term: { 'keyword_facets.facet_name': 'brand' } },
                   { term: { ['keyword_facets.facet_value']: value } }, //
                   // { term: { [`${field}`]: value } }, //keyword_facets.facet_value
                 ],
-              },
-            },
-          },
-        });
+          //     },
+          //   },
+          // },
+        };
       },
       // getFacets
       facetResponse: (aggregation) => {
