@@ -1526,6 +1526,193 @@ export const ExampleNestedMixedFacetResponse2 = {
   // ],
 }
 
+export const ExampleNestedMixedFacetResponse3 = {
+  took: 10,
+  responses: [
+    {
+      took: 10,
+      timed_out: false,
+      _shards: { total: 1, successful: 1, skipped: 0, failed: 0 },
+      hits: {
+        total: { value: 2, relation: 'eq' },
+        max_score: 1,
+        hits: [
+          {
+            _index: 'final-faceted-ai',
+            _id: 'c1fq-Y8BebS_YD_OKl4w',
+            _score: 1,
+            _source: {
+              request_type: 'OFFER',
+              lga: 'central-area',
+              keyword_facets: [
+                { facet_value: 'Apple', facet_name: 'brand' },
+                { facet_value: 'NEW', facet_name: 'condition' },
+              ],
+              long_facets: [{ facet_value: 300000, facet_name: 'price' }],
+              description: '<div>the latest iphone x brand new with box</div>',
+              title: 'new iphone X',
+              tags: '[]',
+              condition: 'NEW',
+              price: 300000,
+              auth_user: 'Postman Developer',
+              item_image: null,
+              location: '40.715, -74.011',
+              category: 'Iphone',
+              status: 'ACTIVE',
+            },
+          },
+          {
+            _index: 'final-faceted-ai',
+            _id: 'dFfq-Y8BebS_YD_OKl4w',
+            _score: 1,
+            _source: {
+              request_type: 'OFFER',
+              lga: 'central-area',
+              keyword_facets: [
+                { facet_value: 'Iphone 15 Pro', facet_name: 'model' },
+                { facet_value: 'Apple', facet_name: 'brand' },
+                { facet_value: 'NEW', facet_name: 'condition' },
+              ],
+              long_facets: [{ facet_value: 800000, facet_name: 'price' }],
+              description:
+                '<div>the latest iphone 15 pro brand new with box</div>',
+              title: 'latest iPhone 15 Pro',
+              tags: '[]',
+              condition: 'NEW',
+              price: 800000,
+              auth_user: 'Postman Developer',
+              item_image: null,
+              location: '40.715, -74.011',
+              category: 'Iphone',
+              status: 'ACTIVE',
+            },
+          },
+        ],
+      },
+      aggregations: {
+        request_type: {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: 'OFFER', doc_count: 2 }],
+        },
+        'categories.lvl2': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: 'Multimedia > Phones > Iphone', doc_count: 2 }],
+        },
+        price$_entries: {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [
+            { key: 300000, doc_count: 1 },
+            { key: 800000, doc_count: 1 },
+          ],
+        },
+        'categories.lvl1': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: 'Multimedia > Phones', doc_count: 2 }],
+        },
+        lga: {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: 'central-area', doc_count: 2 }],
+        },
+        'categories.lvl0': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: 'Multimedia', doc_count: 2 }],
+        },
+        'keyword_facets.': {
+          doc_count: 5,
+          'keyword_facets.model': {
+            doc_count: 1,
+            'keyword_facets.model': {
+              doc_count_error_upper_bound: 0,
+              sum_other_doc_count: 0,
+              buckets: [{ key: 'Iphone 15 Pro', doc_count: 1 }],
+            },
+          },
+          'keyword_facets.brand': {
+            doc_count: 2,
+            'keyword_facets.brand': {
+              doc_count_error_upper_bound: 0,
+              sum_other_doc_count: 0,
+              buckets: [{ key: 'Apple', doc_count: 2 }],
+            },
+          },
+        },
+        price$_stats: {
+          count: 2,
+          min: 300000,
+          max: 800000,
+          avg: 550000,
+          sum: 1100000,
+        },
+      },
+      status: 200,
+    },
+    {
+      took: 2,
+      timed_out: false,
+      _shards: { total: 1, successful: 1, skipped: 0, failed: 0 },
+      hits: { total: { value: 3, relation: 'eq' }, max_score: null, hits: [] },
+      aggregations: {
+        'categories.lvl2': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: 'Multimedia > Phones > Iphone', doc_count: 2 }],
+        },
+        'categories.lvl1': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: 'Multimedia > Phones', doc_count: 3 }],
+        },
+        'categories.lvl0': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: 'Multimedia', doc_count: 3 }],
+        },
+      },
+      status: 200,
+    },
+    {
+      took: 1,
+      timed_out: false,
+      _shards: { total: 1, successful: 1, skipped: 0, failed: 0 },
+      hits: { total: { value: 6, relation: 'eq' }, max_score: null, hits: [] },
+      aggregations: {
+        'categories.lvl0': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [
+            { key: 'Multimedia', doc_count: 5 },
+            { key: 'Fashion', doc_count: 1 },
+          ],
+        },
+      },
+      status: 200,
+    },
+    {
+      took: 4,
+      timed_out: false,
+      _shards: { total: 1, successful: 1, skipped: 0, failed: 0 },
+      hits: { total: { value: 5, relation: 'eq' }, max_score: null, hits: [] },
+      aggregations: {
+        'categories.lvl1': {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [
+            { key: 'Multimedia > Phones', doc_count: 3 },
+            { key: 'Multimedia > Laptops', doc_count: 2 },
+          ],
+        },
+      },
+      status: 200,
+    },
+  ],
+};
+
 export const ExampleNestedFacetQueryResponse = {
   took: 1,
   responses: [
